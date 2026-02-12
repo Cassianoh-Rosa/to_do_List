@@ -174,6 +174,8 @@
         const concluidasBtn = document.getElementById('concluidos')
         const tarefas = []
         let lista = document.querySelector('section#lista')
+        let conc = document.querySelector('span#concluidas')
+        let tot = document.querySelector('span#total')
 
         adicionarBtn.addEventListener('click', () =>{
             if(input.value.trim() === ''){
@@ -189,9 +191,10 @@
             input.focus()
 
             atualizarTarefas()
-
+            ConcTot()
         })
         function atualizarTarefas(){
+            ConcTot()
             lista.innerHTML = ''
             tarefas.forEach((tarefa) =>{
                 const div = document.createElement('div')
@@ -203,6 +206,7 @@
                 button.addEventListener('click', ()=>{
                     tarefa.concluida = !tarefa.concluida
                     atualizarTarefas()
+                    ConcTot()
                 })
                  if(tarefa.concluida == true){
                         p.style.textDecoration = 'line-through'
@@ -215,9 +219,11 @@
         todasBtn.addEventListener('click',() =>{
             lista.innerHTML = ''
             atualizarTarefas()
+            ConcTot()
         })
         pendentesBtn.addEventListener('click', function naofeitas(){
             lista.innerHTML = ''
+            ConcTot()
             const pendentes = tarefas.filter((tarefa) =>{
                 if(tarefa.concluida === false)
                 return true
@@ -234,6 +240,7 @@
                         p.style.textDecoration = 'line-through'
                     } 
                     naofeitas()
+                    ConcTot()
                 })
                 div.appendChild(p)
                 div.appendChild(button)
@@ -243,6 +250,7 @@
         })
         concluidasBtn.addEventListener('click', function finalizadas(){
             lista.innerHTML = ''
+            ConcTot()
             const prontas = tarefas.filter((tarefa) =>{
                 if(tarefa.concluida) return true
             })
@@ -261,13 +269,24 @@
                         p.style.textDecoration = 'line-through'
                     } 
                     finalizadas()
+                    ConcTot()
                 })
                 div.appendChild(p)
                 div.appendChild(button)
                 lista.appendChild(div)
             })
         })
-        
+        function ConcTot(){
+    const totalConcluidas = tarefas.reduce((acumulador, tarefa) => {
+        if(tarefa.concluida){
+            return acumulador + 1
+        }
+        return acumulador
+    }, 0)
+
+    conc.innerHTML = totalConcluidas
+    tot.innerHTML = tarefas.length
+}
 
     </script>
 </body>
