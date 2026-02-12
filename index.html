@@ -94,11 +94,12 @@
         transition: border-left 0.5s;
     }
     section#lista > div > button{
-        padding: 10px;
-        background-color: rgb(9, 230, 12);
+        padding: 5px;
+        background-color: rgba(81, 201, 83, 0.431);
         color:white;
         border: none;
         text-shadow: 1px 1px 1px black;
+        font-size: 18px;
         border-radius: 6px;
     }
     @media screen and (min-width:800px){
@@ -106,14 +107,18 @@
         width: 740px;
        }
        section#lista > div:hover{
-        border-left: 15px solid rgb(9, 230, 12)
+        border-left: 15px solid rgb(9, 230, 12);
      }
      input[type="button"]:hover{
         background-color: rgb(59, 124, 102);
+        cursor: pointer;
     }
        main{
         justify-items: center;
        }
+    section#lista > div > button{
+        cursor: pointer;
+    }
     }
     @media screen and (min-width:1200px){
         section{
@@ -124,10 +129,14 @@
        }
        input[type="button"]:hover{
         background-color: rgb(59, 124, 102);
+        cursor: pointer;
     }
     section#lista > div:hover{
-        border-left: 15px solid rgb(9, 230, 12)
+        border-left: 15px solid rgb(9, 230, 12);
      }
+     section#lista > div > button{
+        cursor: pointer;
+    }
     }
 </style>
 <body>
@@ -190,7 +199,7 @@
                 const button = document.createElement('button')
 
                 p.textContent = tarefa.texto
-                button.textContent = 'CONCLUIR'
+                button.textContent = '✅'
                 button.addEventListener('click', ()=>{
                     tarefa.concluida = !tarefa.concluida
                     atualizarTarefas()
@@ -206,7 +215,6 @@
         todasBtn.addEventListener('click',() =>{
             lista.innerHTML = ''
             atualizarTarefas()
-            input.focus()
         })
         pendentesBtn.addEventListener('click', function naofeitas(){
             lista.innerHTML = ''
@@ -219,7 +227,7 @@
                 const p = document.createElement('p')
                 const button = document.createElement('button')
                 p.textContent = tarefa.texto
-                button.textContent = 'CONCLUIR'
+                button.textContent = '✅'
                 button.addEventListener('click', ()=>{
                     tarefa.concluida = !tarefa.concluida
                     if(tarefa.concluida === true){
@@ -243,7 +251,10 @@
                 const p = document.createElement('p')
                 const button = document.createElement('button')
                 p.textContent = tarefa.texto
-                button.textContent = 'CONCLUIR'
+                if(tarefa.concluida){
+                        p.style.textDecoration = 'line-through'
+                    } 
+                button.textContent = '✅'
                 button.addEventListener('click', ()=>{
                     tarefa.concluida = !tarefa.concluida
                     if(tarefa.concluida){
